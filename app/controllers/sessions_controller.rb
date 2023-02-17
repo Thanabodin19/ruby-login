@@ -21,8 +21,21 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    binding.pry
-    # user = User.find_or_create_by(uid: request.env['omniauth.auth'][:provider], provider: request.env['omniauth.auth'][:uid]) do |u|
+    # binding.pry
+    user = User.find_or_create_by(uid: request.env['omniauth.auth'][:provider], provider: request.env['omniauth.auth'][:uid])
+      user.username = request.env['omniauth.auth'][:info][:first_name]
+      user.email = request.env['omniauth.auth'][:info][:email]
+      user.password = SecureRandom.hex(15)
     # end
+    if user.save
+      @n = user.username
+      session[:user_id] = user.id
+      puts user.username
+      puts user.email
+      puts user.password
+      redirect_to root_path(@n)
+    else
+      redirect_to login_path
+    end
   end
 end

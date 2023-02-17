@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#destroy'
   get '/auth/:provider/callback', to: 'sessions#omniauth'
+  get '/auth/google_oauth2', to: 'sessions#create'
+
   resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

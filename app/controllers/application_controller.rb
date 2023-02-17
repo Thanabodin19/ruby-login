@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
     def welcome
         if !logged_in?
+            # @user = User.find(params[:id])
+            # render 'users/show', locals: { user: @user }
             redirect_to login_path
         end
     end
